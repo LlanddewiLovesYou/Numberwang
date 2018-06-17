@@ -8,10 +8,12 @@ class Modal extends React.Component {
     this.state = {phrase: 'That\'s Numberwang!'}
   }
 
+
+
   render() {
     return (
       <main className='wangmodal'>
-        <div className='wangphrase'>{this.state.phrase}</div>
+        <div className='wangphrase'>{this.props.phrase}</div>
       </main>
     )
   }

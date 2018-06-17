@@ -6,6 +6,9 @@ class Board extends React.Component {
   constructor(props) {
     super(props)
     this.boardNumbers = this.createBoardNums()
+    // this.state = {
+    //   rerender: this.props.reRender
+    // }
   }
 
   randomIntFromInterval(min,max){
@@ -30,6 +33,13 @@ class Board extends React.Component {
 randomColor() {
   return Math.floor(Math.random()*16777215).toString(16);
 }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.reRender !== newProps.reRender) {
+      this.boardNumbers = this.createBoardNums()
+
+    }
+  }
 
   render() {
     return (

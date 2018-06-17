@@ -56,9 +56,3 @@
   color: white;
   border:none;
 }
-
-.presenter {
-  grid-column: 3;
-  grid-row: 4;
-  align-self: center
-}

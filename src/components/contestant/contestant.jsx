@@ -22,7 +22,7 @@ export default class Contestant extends React.Component {
         {this.state.name ?
           <div className='contestant-info-form'>
             <input placeholder='Enter number here!'></input>
-            <button className='contestant-button' onClick={() => this.setState({name: false})}>Is it Numberwang?</button>
+            <button className='contestant-button' onClick={() => this.props.playTurn()}>Is it Numberwang?</button>
           </div>
            :
           <div className='contestant-info-form'>

@@ -15,8 +15,41 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numberwang: false
+      numberwang: false,
+      turn: "Julie",
+      reRenderBoard: 0
     }
+    this.playTurn = this.playTurn.bind(this)
+  }
+
+  playTurn() {
+    this.displayModal()
+    this.takeTurn()
+  }
+
+  reRenderBoard() {
+    this.setState({reRenderBoard: this.state.reRenderBoard + 1})
+  }
+
+  isItNumberwang() {
+    let isNumberwang = Math.round(Math.random())
+    if (isNumberwang === 0) {
+      this.reRenderBoard()
+      return false
+    } else {
+      return true
+    }
+  }
+
+  takeTurn() {
+    this.state.turn === 'Julie' ? this.setState({turn: "Simon"}) : this.setState({turn: "Julie"})
+  }
+
+  displayModal() {
+    let boolean = this.isItNumberwang()
+    console.log(boolean)
+    this.setState({numberwang: boolean})
+    setTimeout(() => this.setState({numberwang: false}), 1000)
   }
 
   render() {
@@ -24,15 +57,23 @@ class App extends Component {
       <div className="App">
         { this.state.numberwang ? <Modal phrase="That's Numberwang!"/> : null }
         <img src={Logo} className='logo'/>
-        <Board className='board'/>
+        <Board className='board' reRender={this.state.reRenderBoard}/>
         <div className='contestant-1'>
-          <Contestant src={JulieImg} name='Julie'/>
+          <Contestant
+             src={JulieImg}
+             name='Julie'
+             playTurn={this.playTurn}
+             />
         </div>
         <div className='contestant-2'>
-          <Contestant src={SimonImg} name='Simon'/>
+          <Contestant
+            src={SimonImg}
+            name='Simon'
+            playTurn={this.playTurn}
+            />
         </div>
         <div className='presenter'>
-          <Presenter />
+          <Presenter turn={this.state.turn}/>
         </div>
       </div>
     );
