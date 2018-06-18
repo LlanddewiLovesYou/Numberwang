@@ -4,6 +4,7 @@ import './App.css';
 import Board from './components/board/board.jsx'
 import Modal from './components/modal/modal.jsx'
 import Contestant from './components/contestant/contestant.jsx'
+import Youtube from './components/youtube/youtube.jsx'
 import Presenter from './components/presenter/presenter.jsx'
 import Logo from './assets/numberwanglogo.png'
 import JulieImg from './assets/julie.jpg'
@@ -15,11 +16,37 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      youtube: true,
       numberwang: false,
       turn: "Julie",
-      reRenderBoard: 0
+      reRenderBoard: 0,
+      roundLength: 0,
+      turns: 0
     }
     this.playTurn = this.playTurn.bind(this)
+    this.start = this.start.bind(this)
+    this.roundOneCheck = this.roundOneCheck.bind(this)
+  }
+
+  start(){
+    this.setState({youtube:false})
+    this.determineRoundLength()
+  }
+
+  determineRoundLength() {
+    let possibleRoundLengths = [3, 4, 4, 4, 5, 5, 6, 7, 8, 9, 9, 10]
+    let roundLength = possibleRoundLengths[Math.round(Math.random() * 12)]
+    this.state.roundLength = roundLength
+  }
+
+  roundOneCheck() {
+    console.log(`Round length: ${this.state.roundLength}`)
+    console.log(`turns: ${this.state.turns}`)
+    if (this.state.turns < this.state.roundLength){
+      console.log('ROUND ONE')
+    } else {
+      console.log("ROUND TWO")
+    }
   }
 
   playTurn() {
@@ -43,6 +70,7 @@ class App extends Component {
 
   takeTurn() {
     this.state.turn === 'Julie' ? this.setState({turn: "Simon"}) : this.setState({turn: "Julie"})
+    this.state.turns ++
   }
 
   displayModal() {
@@ -55,8 +83,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <button onClick={this.roundOneCheck}>TEST MY CODE</button>
+        { this.state.youtube ? <Youtube start={this.start}/> : null }
         { this.state.numberwang ? <Modal phrase="That's Numberwang!"/> : null }
-        <img src={Logo} className='logo'/>
+        <img src={Logo} className='logo animated rotateIn'/>
         <Board className='board' reRender={this.state.reRenderBoard}/>
         <div className='contestant-1'>
           <Contestant

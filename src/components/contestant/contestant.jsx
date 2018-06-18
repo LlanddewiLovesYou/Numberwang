@@ -12,6 +12,12 @@ export default class Contestant extends React.Component {
       julie: false,
       simon: false
     }
+    this.handleNameSubmit = this.handleNameSubmit.bind(this)
+  }
+
+  handleNameSubmit() {
+    this.refInput.value = ''
+    this.setState({name: true})
   }
 
   render() {
@@ -21,15 +27,15 @@ export default class Contestant extends React.Component {
         {this.state.name ? <div className='contestant-name'>{this.props.name} <div className='contestant-from'>from Somerset</div></div> : <div className='contestant-name'>???? <div className='contestant-from'>from ????</div></div> }
         {this.state.name ?
           <div className='contestant-info-form'>
-            <input placeholder='Enter number here!'></input>
+            <input placeholder='Enter number here!' ></input>
             <button className='contestant-button' onClick={() => this.props.playTurn()}>Is it Numberwang?</button>
           </div>
            :
           <div className='contestant-info-form'>
-            <input placeholder='Enter name here!'></input>
+            <input ref={(input) => this.refInput = input } placeholder='Enter name here!'></input>
             <div className='contestant-from'>from</div>
             <input placeholder='Enter hometown here!'></input>
-            <button className='contestant-button' onClick={() => this.setState({name: true})}>Let's Wang!</button>
+            <button className='contestant-button' onClick={this.handleNameSubmit}>Let's Wang!</button>
           </div>
         }
       </div>

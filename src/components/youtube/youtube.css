@@ -1,0 +1,47 @@
+.youtube-button {
+  font-family: 'righteous';
+  border-radius: 5px;
+  border-style: none;
+  border: 1px solid #9900ff;
+  height: 35px;
+  width: 170px;
+  background-color: #1b6bc2;
+  color: white;
+  border:none;
+  margin: 10px;
+  font-size: 16px
+}
+
+.youtube-button:hover {
+  background-color: #ff00ff;
+  color: #9900ff;
+
+}
+
+.youtube-container {
+  background-color: white;
+  border-bottom: 5px solid grey;
+  border-right: 5px solid grey;
+  border-top: 5px solid lightgrey;
+  border-left: 5px solid lightgrey;
+  width: 600px;
+  position: absolute;
+  left: 50%;
+  margin-left: -300px;
+  top: 50%;
+  margin-top: -225px;
+}
+
+.youtube-header, .youtube-copy {
+  font-family: 'righteous';
+  margin: 0 20px;
+}
+.youtube-header {
+  font-size: 25px;
+  margin: 20px 0;
+}
+
+.youtube-copy {
+  margin: 10px 20px;
+
+}
