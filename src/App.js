@@ -21,11 +21,13 @@ class App extends Component {
       turn: "Julie",
       reRenderBoard: 0,
       roundLength: 0,
-      turns: 0
+      turns: 0,
+      roundTwo: false,
+      roundTwoModal: false
     }
     this.playTurn = this.playTurn.bind(this)
     this.start = this.start.bind(this)
-    this.roundOneCheck = this.roundOneCheck.bind(this)
+    this.roundCheck = this.roundCheck.bind(this)
   }
 
   start(){
@@ -39,19 +41,23 @@ class App extends Component {
     this.state.roundLength = roundLength
   }
 
-  roundOneCheck() {
+  roundCheck() {
     console.log(`Round length: ${this.state.roundLength}`)
     console.log(`turns: ${this.state.turns}`)
     if (this.state.turns < this.state.roundLength){
-      console.log('ROUND ONE')
+       return false
     } else {
-      console.log("ROUND TWO")
+      return true
     }
   }
 
   playTurn() {
-    this.displayModal()
     this.takeTurn()
+    this.thatsNumberwang()
+    if (this.roundCheck() && this.state.roundTwo === false) {
+      setTimeout(() => this.displayModal('roundTwoModal'), 1000)
+      setTimeout(() => this.setState({roundTwo: true}), 2000)
+    }
   }
 
   reRenderBoard() {
@@ -73,18 +79,24 @@ class App extends Component {
     this.state.turns ++
   }
 
-  displayModal() {
+  thatsNumberwang() {
     let boolean = this.isItNumberwang()
-    console.log(boolean)
     this.setState({numberwang: boolean})
     setTimeout(() => this.setState({numberwang: false}), 1000)
   }
 
+  displayModal(modalName) {
+    this.setState({[modalName]: true})
+    setTimeout(() => this.setState({[modalName]: false}), 1000)
+  }
+
+
   render() {
     return (
       <div className="App">
-        <button onClick={this.roundOneCheck}>TEST MY CODE</button>
+        <button onClick={this.roundCheck}>TEST MY CODE</button>
         { this.state.youtube ? <Youtube start={this.start}/> : null }
+        { this.state.roundTwoModal ? <Modal phrase="Round 2, Let's rotate the board!"/> : null }
         { this.state.numberwang ? <Modal phrase="That's Numberwang!"/> : null }
         <img src={Logo} className='logo animated rotateIn'/>
         <Board className='board' reRender={this.state.reRenderBoard}/>

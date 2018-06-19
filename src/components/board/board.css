@@ -11,7 +11,7 @@ border: 10px solid grey;
 background-color: white;
 grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
 grid-template-rows: 20% 20% 20% 20% 20%;
-width: 1000px;
+width: 50vw;
 height: 530px;
 align-items: center;
 justify-content: center;
