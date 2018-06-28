@@ -26,7 +26,7 @@ class App extends Component {
     const PICS = [pizza, poll, doggo, catbox, closed]
     super(props)
     this.state = {
-      youtube: false,
+      youtube: true,
       numberwang: false,
       turn: "Julie",
       reRenderBoard: 0,
@@ -44,7 +44,7 @@ class App extends Component {
   }
 
   start(){
-    this.setState({youtube:false})
+    this.setState({youtube:false, turns: 0})
     this.determineRoundLength()
   }
 
@@ -70,6 +70,11 @@ class App extends Component {
     if (this.roundCheck() && this.state.roundTwo === false) {
       setTimeout(() => this.displayModal('roundTwoModal'), 1000)
       setTimeout(() => this.setState({roundTwo: true}), 2000)
+      setTimeout(() => this.rotateBoard(), 3000)
+      setTimeout(() => this.start(), 6000)
+    }
+    if (this.roundCheck() && this.state.roundTwo === true) {
+      console.log('That\'s the end of the game')
     }
   }
 
