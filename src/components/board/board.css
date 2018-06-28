@@ -137,3 +137,7 @@ margin: 0 auto;
   font-size: 90px;
 
 }
+
+#board {
+  animation-duration: 3s;
+}

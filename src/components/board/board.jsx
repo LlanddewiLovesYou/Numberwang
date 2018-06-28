@@ -42,8 +42,14 @@ randomColor() {
   }
 
   render() {
+    let classVar = ''
+    if (this.props.rotateBoard) {
+      classVar = 'board-wrapper animated flipOutY'
+    } else {
+      classVar = 'board-wrapper animated flipInY'
+    }
     return (
-      <main className='board-wrapper'>
+      <main className={classVar} id='board'>
 
         <div className='full-board'>
           <div className='board-num-1'>{this.boardNumbers[0]}</div>
