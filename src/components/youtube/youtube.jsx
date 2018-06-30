@@ -12,7 +12,7 @@ class Youtube extends React.Component {
         </div>
         <div className='youtube-copy'>
           Unfamiliar with Numberwang? Watch the video below to familiarize yourself
-          with some <a href='http://mirror.uncyc.org/wiki/Numberwang'>simple rules</a>.
+          with some <a href='http://mirror.uncyc.org/wiki/Numberwang' target='_blank'>simple rules</a>.
           <iframe width="560" height="315" src="https://www.youtube.com/embed/0obMRztklqU" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
           <br/>
           Finshed with the video or just wanting to dive right in?

@@ -17,6 +17,7 @@ export default class Contestant extends React.Component {
 
   handleNameSubmit() {
     this.refInput.value = ''
+    this.props.signIn()
     this.setState({name: true})
   }
 

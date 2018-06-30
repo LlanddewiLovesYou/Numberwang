@@ -31,6 +31,8 @@
 .presenter {
   grid-column: 3;
   grid-row: 4;
+  width: 75vw;
+  justify-self: center;
   /* align-self: flex-start; */
 }
 
