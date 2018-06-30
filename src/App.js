@@ -16,6 +16,7 @@ import doggo from "./assets/doggo.jpg";
 import catbox from "./assets/catbox.jpg";
 import closed from "./assets/closed.jpg";
 import correct from "./assets/thatsnumberwang.wav";
+import themesong from "./assets/themesong.wav";
 
 class App extends Component {
 
@@ -52,12 +53,13 @@ class App extends Component {
       "Players, Enter you names and hometowns",
       "and let's play NumberWang!"
     ];
-
+    const song = new Audio(themesong)
     this.setState({ youtube: false, turns: 0 });
     this.determineRoundLength();
     if (this.state.roundTwo === false) {
       this.speak(opening);
     }
+    song.play()
   }
 
   determineRoundLength() {
