@@ -5,9 +5,11 @@ import Board from "./components/board/board.jsx";
 import Modal from "./components/modal/modal.jsx";
 import Contestant from "./components/contestant/contestant.jsx";
 import Youtube from "./components/youtube/youtube.jsx";
+import GameOver from "./components/gameover/gameover.jsx";
 import Presenter from "./components/presenter/presenter.jsx";
 import WhosTurn from "./components/presenter/whosturn.jsx";
-import Logo from "./assets/numberwanglogo.png";
+import NumberWang from "./assets/numberwanglogo.png";
+import WangerNumb from "./assets/wangernumb.png";
 import JulieImg from "./assets/julie.jpg";
 import SimonImg from "./assets/simon.jpg";
 import pizza from "./assets/pizza.jpg";
@@ -15,8 +17,10 @@ import poll from "./assets/poll.jpg";
 import doggo from "./assets/doggo.jpg";
 import catbox from "./assets/catbox.jpg";
 import closed from "./assets/closed.jpg";
+import Bag from "./assets/paperbag.png";
 import correct from "./assets/thatsnumberwang.wav";
 import themesong from "./assets/themesong.wav";
+import { PHRASES, OPENING, CLOSING, HOMETOWNS, WANGERNUMB } from './constants.js'
 
 class App extends Component {
 
@@ -24,7 +28,8 @@ class App extends Component {
     const PICS = [pizza, poll, doggo, catbox, closed];
     super(props);
     this.state = {
-      youtube: false,
+      youtube: true,
+      hometowns: this.determineHometowns(),
       numberwang: false,
       turn: "Julie",
       reRenderBoard: 0,
@@ -34,9 +39,14 @@ class App extends Component {
       roundTwoModal: false,
       rotateBoard: false,
       imgSrc: PICS[Math.round(Math.random() * 5)],
+      boardImg: false,
       speaking: true,
       saying: "",
-      signedIn: 0
+      signedIn: 0,
+      img: false,
+      wangernumb:false,
+      gameOver: false,
+      playAgain: false
     };
     this.playTurn = this.playTurn.bind(this);
     this.start = this.start.bind(this);
@@ -44,20 +54,16 @@ class App extends Component {
     this.rotateBoard = this.rotateBoard.bind(this);
     this.speak = this.speak.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.gameOver = this.gameOver.bind(this);
+    this.determineHometowns = this.determineHometowns.bind(this);
   }
 
   start() {
-    let opening = [
-      "Hello and welcome to Numberwang!",
-      "The maths quiz that's simply everyone!",
-      "Players, Enter you names and hometowns",
-      "and let's play NumberWang!"
-    ];
     const song = new Audio(themesong)
     this.setState({ youtube: false, turns: 0 });
     this.determineRoundLength();
     if (this.state.roundTwo === false) {
-      this.speak(opening);
+      this.speak(OPENING);
     }
     song.play()
   }
@@ -83,12 +89,19 @@ class App extends Component {
     this.thatsNumberwang();
     if (this.roundCheck() && this.state.roundTwo === false) {
       setTimeout(() => this.displayModal("roundTwoModal"), 1000);
+      setTimeout(() => this.start(), 3000);
       setTimeout(() => this.setState({ roundTwo: true }), 2000);
-      setTimeout(() => this.rotateBoard(), 3000);
-      setTimeout(() => this.start(), 6000);
+      setTimeout(() => this.speak(WANGERNUMB), 3000)
+      setTimeout(() => this.rotateBoard(), 7000);
+
     }
     if (this.roundCheck() && this.state.roundTwo === true) {
-      console.log("That's the end of the game");
+      const song = new Audio(themesong)
+      song.play()
+      setTimeout(() => this.displayModal('wangernumb'), 1000)
+      setTimeout(() => this.speak(CLOSING), 3000)
+      setTimeout(() => this.gameOver(), 4000)
+      setTimeout(() => this.setState({playAgain: true}), 14000)
     }
   }
 
@@ -97,8 +110,11 @@ class App extends Component {
   }
 
   rotateBoard() {
-    this.setState({ rotateBoard: true });
-    setTimeout(() => this.setState({ rotateBoard: false }), 5000);
+    this.setState({rotateBoard: true });
+    setTimeout(() => this.setState({img: true, boardImg: true }), 3000);
+    setTimeout(() => this.setState({boardImg: false}), 6000);
+    setTimeout(() => this.setState({rotateBoard: false}), 9000);
+    setTimeout(() => this.setState({img: false }), 12000);
   }
 
   isItNumberwang() {
@@ -128,9 +144,14 @@ class App extends Component {
     setTimeout(() => this.setState({ numberwang: false }), 1000);
   }
 
+  determineModalPhrase() {
+    let modalPhrase = PHRASES[Math.round(Math.random() * 28)]
+    return modalPhrase
+  }
+
   displayModal(modalName) {
     this.setState({ [modalName]: true });
-    setTimeout(() => this.setState({ [modalName]: false }), 1000);
+    setTimeout(() => this.setState({ [modalName]: false }), 1500);
   }
 
   speak(speechArray) {
@@ -150,36 +171,63 @@ class App extends Component {
     this.setState({ signedIn: this.state.signedIn + 1, speaking });
   }
 
+  gameOver() {
+    this.setState({gameOver: !this.state.gameOver})
+  }
+
+  determineHometowns() {
+    let hometowns = HOMETOWNS[Math.round(Math.random() * 6)]
+    return hometowns
+  }
+
   render() {
+    let logo;
+      if (this.state.roundTwo){
+        logo = WangerNumb
+      } else {
+        logo = NumberWang
+      }
+
+    let classVar;
+    if (this.state.img === false) {
+      classVar = 'rotate-image'
+    } else if (this.state.img && this.state.rotateBoard) {
+      classVar = 'rotate-image rotateBoardIn'
+    } else if (this.state.img && !this.state.rotateBoard) {
+      classVar = 'rotate-image rotateBoardOut'
+
+    }
     return (
       <div className="App">
-        <button onClick={this.start}>TEST MY CODE</button>
+        <button onClick={this.start} onDoubleClick={this.rotateBoard}>TEST MY CODE</button>
         {this.state.youtube ? <Youtube start={this.start} /> : null}
-        {this.state.roundTwoModal ? (
-          <Modal phrase="Round 2, Let's rotate the board!" />
-        ) : null}
-        {this.state.numberwang ? <Modal phrase="That's Numberwang!" /> : null}
-        <img src={Logo} className="logo animated rotateIn" />
+        {this.state.roundTwoModal ? <Modal phrase="It's time for WangerNumb!" /> : null}
+        {this.state.wangernumb ? <Modal phrase="That's WangerNumb! Game Over!"/> : null}
+        {this.state.numberwang ? <Modal phrase={this.determineModalPhrase()} /> : null}
+        {this.state.playAgain ? <GameOver />: null}
+        <img src={logo} className="logo animated rotateIn" />
         <Board
-          className="board"
+          className='board'
           reRender={this.state.reRenderBoard}
           rotateBoard={this.state.rotateBoard}
         />
-        {this.state.rotateBoard ? (
-          <img src={this.state.imgSrc} className="rotate-image" />
-        ) : null}
+      { this.state.img ? <img src={this.state.imgSrc} className={classVar} /> : null}
+      {this.state.gameOver ? <img src={Bag}  className='bag'/> : null}
         <div className="contestant-1">
           <Contestant
             src={JulieImg}
             name="Julie"
+            hometown={this.state.hometowns[0]}
             playTurn={this.playTurn}
             signIn={this.signIn}
           />
         </div>
+        {this.state.gameOver ? <div className='presenter-text winner'>WINNER!</div> :null}
         <div className="contestant-2">
           <Contestant
             src={SimonImg}
             name="Simon"
+            hometown={this.state.hometowns[1]}
             playTurn={this.playTurn}
             signIn={this.signIn}
           />

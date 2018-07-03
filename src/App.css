@@ -37,10 +37,24 @@
 }
 
 .rotate-image {
-  height: 530px;
+  height: 550px;
   width: 50vw;
   grid-column: 3;
   grid-row: 2;
   justify-self: center;
+  z-index: 1;
+  transform: rotateY(90deg);
+}
 
+.winner {
+  grid-column: 5;
+  grid-row: 2;
+  margin-top: 75px
+}
+
+.bag {
+  position: absolute;
+  width: 325px;
+  grid-column: 1;
+  grid-row: 2;
 }

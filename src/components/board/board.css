@@ -17,6 +17,7 @@ align-items: center;
 justify-content: center;
 font-size: 50px;
 margin: 0 auto;
+z-index: 4;
 /* margin: 20px; */
 /* margin-top: 50px; */
 }
@@ -42,7 +43,7 @@ margin: 0 auto;
   grid-row: 3 / 4;
   /* justify-self: ; */
   /* align-self: ; */
-  font-size: 100px;
+  font-size: 80px;
   color: green;
 }
 
@@ -52,7 +53,7 @@ margin: 0 auto;
   justify-self: start;
   align-self: end;
   color: magenta;
-  font-size: 70px;
+  font-size: 80px;
 }
 
 .board-num-4 {
@@ -61,7 +62,7 @@ margin: 0 auto;
   justify-self: start;
   align-self: start;
   color: red;
-  font-size: 100px;
+  font-size: 80px;
 }
 
 .board-num-5 {
@@ -134,10 +135,32 @@ margin: 0 auto;
   justify-self: ;
   align-self: ;
   color: hotpink ;
-  font-size: 90px;
+  font-size: 80px;
 
 }
 
 #board {
-  animation-duration: 5s;
+
+}
+
+.rotateBoardOut {
+  animation-name: rotateBoardOut;
+  animation-duration: 3s;
+  animation-fill-mode: both;
+}
+
+.rotateBoardIn {
+  animation-name: rotateBoardIn;
+  animation-duration: 3s;
+  animation-fill-mode: both;
+}
+
+@keyframes rotateBoardOut {
+  0% {transform: rotateY(0deg)}
+  100% {transform: rotateY(90deg)}
+}
+
+@keyframes rotateBoardIn {
+  0% {transform: rotateY(90deg)}
+  100% {transform: rotateY(0deg)}
 }

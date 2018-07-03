@@ -6,9 +6,6 @@ class Board extends React.Component {
   constructor(props) {
     super(props)
     this.boardNumbers = this.createBoardNums()
-    // this.state = {
-    //   rerender: this.props.reRender
-    // }
   }
 
   randomIntFromInterval(min,max){
@@ -44,9 +41,9 @@ randomColor() {
   render() {
     let classVar = ''
     if (this.props.rotateBoard) {
-      classVar = 'board-wrapper animated flipOutY'
+      classVar = 'board-wrapper rotateBoardOut'
     } else {
-      classVar = 'board-wrapper animated flipInY'
+      classVar = 'board-wrapper rotateBoardIn'
     }
     return (
       <main className={classVar} id='board'>

@@ -30,7 +30,7 @@ export default class Contestant extends React.Component {
     return (
       <div className='contestant-container'>
         {this.state.name ? <img src={this.props.src} className="contestant-image"/> : <img src={avatar} className="contestant-image"/> }
-        {this.state.name ? <div className='contestant-name'>{this.props.name} <div className='contestant-from'>from Somerset</div></div> : <div className='contestant-name'>???? <div className='contestant-from'>from ????</div></div> }
+        {this.state.name ? <div className='contestant-name'>{this.props.name} <div className='contestant-from'>from {this.props.hometown}</div></div> : <div className='contestant-name'>???? <div className='contestant-from'>from ????</div></div> }
         {this.state.name ?
           <div className='contestant-info-form'>
             <input ref={(input) => this.refInput = input } placeholder='Enter number here!' ></input>
