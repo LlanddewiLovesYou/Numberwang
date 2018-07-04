@@ -114,7 +114,7 @@ class App extends Component {
     setTimeout(() => this.setState({img: true, boardImg: true }), 3000);
     setTimeout(() => this.setState({boardImg: false}), 6000);
     setTimeout(() => this.setState({rotateBoard: false}), 9000);
-    setTimeout(() => this.setState({img: false }), 12000);
+    setTimeout(() => this.setState({img: false, speaking: false }), 12000);
   }
 
   isItNumberwang() {
@@ -158,7 +158,7 @@ class App extends Component {
     speechArray.push(" ");
     speechArray.forEach((sentence, idx) => {
       setTimeout(() => this.setState({ speaking: true, saying: sentence }), 2000 * idx);
-      setTimeout(() => console.log(sentence), 2000 * idx);
+      // setTimeout(() => this.setState({ speaking:false }), 2000 * speechArray.length);
     });
     // setTimeout(() => this.setState({speaking: false}), 2000 * speechArray.length)
   }
