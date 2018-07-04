@@ -197,9 +197,9 @@ class App extends Component {
       classVar = 'rotate-image rotateBoardOut'
 
     }
+    // <button onClick={this.start} onDoubleClick={this.rotateBoard}>TEST MY CODE</button>
     return (
       <div className="App">
-        <button onClick={this.start} onDoubleClick={this.rotateBoard}>TEST MY CODE</button>
         {this.state.youtube ? <Youtube start={this.start} /> : null}
         {this.state.roundTwoModal ? <Modal phrase="It's time for WangerNumb!" /> : null}
         {this.state.wangernumb ? <Modal phrase="That's WangerNumb! Game Over!"/> : null}
