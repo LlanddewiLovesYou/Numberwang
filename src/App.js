@@ -191,9 +191,9 @@ class App extends Component {
     let classVar;
     if (this.state.img === false) {
       classVar = 'rotate-image'
-    } else if (this.state.img && this.state.rotateBoard) {
+    } else if (this.state.img && this.state.boardImg) {
       classVar = 'rotate-image rotateBoardIn'
-    } else if (this.state.img && !this.state.rotateBoard) {
+    } else if (this.state.img && !this.state.boardImg) {
       classVar = 'rotate-image rotateBoardOut'
 
     }
